@@ -100,7 +100,7 @@ class PostCrudController extends Controller
      */
     public function edit($id)
     {
-        if ($request->user()->can('create-posts') || $request->user()->can('edit-posts')) {
+        if ($request->user()->can('edit-posts')) {
             if(request()->ajax())
             {
                 $data = PostCrud::findOrFail($id);
@@ -119,7 +119,7 @@ class PostCrudController extends Controller
     // public function update(Request $request, $id)
     public function update(Request $request)
     {
-        if ($request->user()->can('create-posts') || $request->user()->can('edit-posts')) {
+        if ($request->user()->can('edit-posts')) 
         {
             $image_name = $request->hidden_image;
             $image = $request->file('image');
@@ -177,9 +177,7 @@ class PostCrudController extends Controller
      */
     public function destroy($id)
     {
-        if ($request->user()->can('create-posts')) {
-            $data = PostCrud::findOrFail($id);
-            $data->delete();
-        }        
+        $data = PostCrud::findOrFail($id);
+        $data->delete();
     }
 }
